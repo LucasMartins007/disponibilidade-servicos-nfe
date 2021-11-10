@@ -1,0 +1,14 @@
+/home/lucas/Workspace/projetos/statusnfe/src/main/java/com/selecaoviasoft/statusnfe/domain/model/enums/EnumDisponibilidade.java
+/home/lucas/Workspace/projetos/statusnfe/src/main/java/com/selecaoviasoft/statusnfe/StatusnfeApplication.java
+/home/lucas/Workspace/projetos/statusnfe/src/main/java/com/selecaoviasoft/statusnfe/domain/util/Utils.java
+/home/lucas/Workspace/projetos/statusnfe/src/main/java/com/selecaoviasoft/statusnfe/persistence/ServicoRepository.java
+/home/lucas/Workspace/projetos/statusnfe/src/main/java/com/selecaoviasoft/statusnfe/job/JobVerificacaoStatusServico.java
+/home/lucas/Workspace/projetos/statusnfe/src/main/java/com/selecaoviasoft/statusnfe/job/gerenciadores/GerenciadorJobStatusServico.java
+/home/lucas/Workspace/projetos/statusnfe/src/main/java/com/selecaoviasoft/statusnfe/domain/service/impl/ServicoServiceImpl.java
+/home/lucas/Workspace/projetos/statusnfe/src/main/java/com/selecaoviasoft/statusnfe/api/controller/ServicoController.java
+/home/lucas/Workspace/projetos/statusnfe/src/main/java/com/selecaoviasoft/statusnfe/domain/model/Servico.java
+/home/lucas/Workspace/projetos/statusnfe/src/main/java/com/selecaoviasoft/statusnfe/domain/util/StringUtil.java
+/home/lucas/Workspace/projetos/statusnfe/src/main/java/com/selecaoviasoft/statusnfe/api/controller/ServicoControllerImpl.java
+/home/lucas/Workspace/projetos/statusnfe/src/main/java/com/selecaoviasoft/statusnfe/domain/pattern/enums/IEnum.java
+/home/lucas/Workspace/projetos/statusnfe/src/main/java/com/selecaoviasoft/statusnfe/domain/pattern/enums/AbstractEnumConverter.java
+/home/lucas/Workspace/projetos/statusnfe/src/main/java/com/selecaoviasoft/statusnfe/domain/service/ServicoService.java

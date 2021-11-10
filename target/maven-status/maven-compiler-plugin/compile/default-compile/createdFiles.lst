@@ -1,0 +1,15 @@
+com/selecaoviasoft/statusnfe/domain/pattern/enums/AbstractEnumConverter.class
+com/selecaoviasoft/statusnfe/domain/model/enums/EnumDisponibilidade.class
+com/selecaoviasoft/statusnfe/domain/pattern/enums/IEnum.class
+com/selecaoviasoft/statusnfe/domain/model/enums/EnumDisponibilidade$EnumConverter.class
+com/selecaoviasoft/statusnfe/domain/service/ServicoService.class
+com/selecaoviasoft/statusnfe/domain/service/impl/ServicoServiceImpl.class
+com/selecaoviasoft/statusnfe/api/controller/ServicoController.class
+com/selecaoviasoft/statusnfe/domain/util/Utils.class
+com/selecaoviasoft/statusnfe/persistence/ServicoRepository.class
+com/selecaoviasoft/statusnfe/job/JobVerificacaoStatusServico.class
+com/selecaoviasoft/statusnfe/StatusnfeApplication.class
+com/selecaoviasoft/statusnfe/api/controller/ServicoControllerImpl.class
+com/selecaoviasoft/statusnfe/domain/util/StringUtil.class
+com/selecaoviasoft/statusnfe/domain/model/Servico.class
+com/selecaoviasoft/statusnfe/job/gerenciadores/GerenciadorJobStatusServico.class
