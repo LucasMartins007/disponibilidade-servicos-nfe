@@ -19,13 +19,13 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ServicoRepository extends JpaRepository<Servico, Integer>{
 
-    public Servico findByAutorizador(String uf);
+    Servico findFirstByAutorizadorOrderByIdDesc(String uf);
 
     
     @Query(" SELECT s FROM Servico s "
             + " WHERE s.dataInclusao BETWEEN :startDay AND :endDay "
             + "     AND s.autorizador = :uf ")
-    public Servico findByAutorizadorAndDataInclusao(String uf, Date startDay, Date endDay);
+    Servico findByAutorizadorAndDataInclusao(String uf, Date startDay, Date endDay);
     
     @Query(value = " select AUTORIZADOR, " +
            " (SUM(case when autorizacao = :disponibilidade THEN 1 ELSE 0 END) " +
@@ -38,6 +38,6 @@ public interface ServicoRepository extends JpaRepository<Servico, Integer>{
            " from servico " +
            " group by AUTORIZADOR " + 
            " order by SOMA DESC " , nativeQuery = true)
-    public List<Servico> findAllIndisponiveis(EnumDisponibilidade disponibilidade);
+    List<Servico> findAllIndisponiveis(EnumDisponibilidade disponibilidade);
     
 }

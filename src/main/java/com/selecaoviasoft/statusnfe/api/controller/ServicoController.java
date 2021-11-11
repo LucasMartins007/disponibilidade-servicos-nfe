@@ -5,24 +5,23 @@
 package com.selecaoviasoft.statusnfe.api.controller;
 
 import com.selecaoviasoft.statusnfe.domain.model.Servico;
-import java.util.List;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  *
  * @author lucas
  */
 @RestController
-@RequestMapping(value = ServicoController.PATH)
+@RequestMapping(value = ServicoController.PATH, produces = MediaType.APPLICATION_JSON_VALUE)
 public interface ServicoController {
 
-    final String PATH = "servico/";
+    public static final String PATH = "servico/";
 
-    @GetMapping("estado/{uf}")
+    @GetMapping(path = "estado/{uf}")
+    @ResponseStatus(HttpStatus.OK)
     ResponseEntity<Servico> buscarServicosPorEstado(@PathVariable("uf") String uf);
 
     @GetMapping("estado/{uf}/servico/{servico}")

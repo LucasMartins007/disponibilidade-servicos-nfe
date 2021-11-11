@@ -4,8 +4,8 @@
  */
 package com.selecaoviasoft.statusnfe.domain.service.impl;
 
-import com.selecaoviasoft.statusnfe.api.exception.DomainException;
-import com.selecaoviasoft.statusnfe.api.exception.EnumDomainException;
+import com.selecaoviasoft.statusnfe.domain.exception.DomainException;
+import com.selecaoviasoft.statusnfe.domain.exception.EnumDomainException;
 import com.selecaoviasoft.statusnfe.domain.model.Servico;
 import com.selecaoviasoft.statusnfe.domain.model.enums.EnumDisponibilidade;
 import com.selecaoviasoft.statusnfe.domain.service.ServicoService;
@@ -91,7 +91,7 @@ public class ServicoServiceImpl implements ServicoService {
     }
 
     public Servico findAndValidateByUf(String uf) {
-        Servico servico = servicoRepository.findByAutorizador(uf);
+        Servico servico = servicoRepository.findFirstByAutorizadorOrderByIdDesc(uf);
         if (Utils.isEmpty(servico)) {
             throw new DomainException(EnumDomainException.UF_NAO_ENCONTRADA.getMessage(), uf);
         }
