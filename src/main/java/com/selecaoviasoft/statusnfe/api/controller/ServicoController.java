@@ -5,6 +5,10 @@
 package com.selecaoviasoft.statusnfe.api.controller;
 
 import com.selecaoviasoft.statusnfe.domain.model.Servico;
+import com.selecaoviasoft.statusnfe.domain.util.DateUtil;
+import java.util.Date;
+import java.util.List;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,10 +24,24 @@ public interface ServicoController {
 
     public static final String PATH = "servico/";
 
-    @GetMapping(path = "estado/{uf}")
+    @GetMapping("estado/{uf}")
     @ResponseStatus(HttpStatus.OK)
     ResponseEntity<Servico> buscarServicosPorEstado(@PathVariable("uf") String uf);
 
     @GetMapping("estado/{uf}/servico/{servico}")
-    ResponseEntity<String> buscarStatusPorEstadoAndServico(@PathVariable("uf") String uf, @PathVariable("servico") String servico);
+    @ResponseStatus(HttpStatus.OK)
+    ResponseEntity<String> buscarStatusPorEstadoAndServico(@PathVariable("uf") String uf,
+            @PathVariable("servico") String servico);
+    
+    @GetMapping("estado/{uf}/filtrar")
+    @ResponseStatus(HttpStatus.OK)
+    ResponseEntity<List<Servico>> buscarStatusPorEstadoPorData(@PathVariable("uf") String uf,
+            @RequestParam(value = "dataInicial", required = true) @DateTimeFormat(pattern = DateUtil.DATE_PATTERN) Date dataInicial, 
+            @RequestParam(value = "dataFinal", required = true) @DateTimeFormat(pattern = DateUtil.DATE_PATTERN) Date dataFinal);
+    
+    @GetMapping("indisponiveis")
+    @ResponseStatus(HttpStatus.OK)
+    ResponseEntity<String> buscarEstadoMaiorIndisponibilidade();
+    
+    
 }

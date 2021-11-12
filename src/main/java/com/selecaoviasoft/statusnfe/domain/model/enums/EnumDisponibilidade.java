@@ -14,9 +14,9 @@ import javax.persistence.Converter;
  */
 public enum EnumDisponibilidade implements IEnum<String> {
     
-    VERDE("DISPONIVEL"),
-    AMARELO("INDISPONIVEL TEMPORARIAMENTE"),
-    VERMELHO("INDISPONIVEL");
+    DISPONIVEL("DISPONIVEL"),
+    INDISPONIVEL_TEMPORARIAMENTE("INDISPONIVEL TEMPORARIAMENTE"),
+    INDISPONIVEL("INDISPONIVEL");
     
     private final String key;
 

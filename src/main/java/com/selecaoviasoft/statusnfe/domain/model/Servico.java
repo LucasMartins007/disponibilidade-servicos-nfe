@@ -4,6 +4,7 @@
  */
 package com.selecaoviasoft.statusnfe.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.selecaoviasoft.statusnfe.domain.model.enums.EnumDisponibilidade;
 import java.io.Serializable;
 import java.util.Date;
@@ -16,8 +17,6 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import lombok.Data;
-import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -57,7 +56,7 @@ public class Servico implements Serializable {
     @Convert(converter = EnumDisponibilidade.EnumConverter.class)
     private EnumDisponibilidade recepcaoEvento;
     
-    @DateTimeFormat(pattern = "dd/MM/yyyy hh:mm")
+    @JsonFormat(pattern="dd-MM-yyyy hh:mm:ss")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dataInclusao;
 

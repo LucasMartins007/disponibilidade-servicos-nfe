@@ -6,6 +6,8 @@ package com.selecaoviasoft.statusnfe.api.controller;
 
 import com.selecaoviasoft.statusnfe.domain.model.Servico;
 import com.selecaoviasoft.statusnfe.domain.service.ServicoService;
+import java.util.Date;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,5 +32,17 @@ public class ServicoControllerImpl implements ServicoController {
     public ResponseEntity<String> buscarStatusPorEstadoAndServico(String uf, String servico) {
         String statusServico = servicoService.encontrarPorEstadoAndServico(uf, servico);
         return ResponseEntity.ok(statusServico);
+    }
+
+    @Override
+    public ResponseEntity<List<Servico>> buscarStatusPorEstadoPorData(String uf, Date dataInicial, Date dataFinal) {
+        List<Servico> servicos = servicoService.encontrarPorEstadoAndData(uf, dataInicial, dataFinal);
+        return ResponseEntity.ok(servicos);
+    }
+
+    @Override
+    public ResponseEntity<String> buscarEstadoMaiorIndisponibilidade() {
+        String estado = servicoService.encontrarEstadoMaiorIndiponibilidade();
+        return ResponseEntity.ok(estado);
     }
 }

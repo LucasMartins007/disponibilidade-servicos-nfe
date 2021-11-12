@@ -97,13 +97,13 @@ public class GerenciadorJobStatusServico {
             return null;
         }
         if (status.contains("verde")) {
-            return EnumDisponibilidade.VERDE;
+            return EnumDisponibilidade.DISPONIVEL;
         }
         if (status.contains("amarelo")) {
-            return EnumDisponibilidade.AMARELO;
+            return EnumDisponibilidade.INDISPONIVEL_TEMPORARIAMENTE;
         }
         if (status.contains("vermelho")) {
-            return EnumDisponibilidade.VERMELHO;
+            return EnumDisponibilidade.INDISPONIVEL;
         }
         return null;
     }

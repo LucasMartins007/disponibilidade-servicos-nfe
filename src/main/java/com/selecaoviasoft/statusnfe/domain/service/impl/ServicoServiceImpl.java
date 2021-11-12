@@ -13,11 +13,16 @@ import com.selecaoviasoft.statusnfe.domain.util.DateUtil;
 import com.selecaoviasoft.statusnfe.domain.util.StringUtil;
 import com.selecaoviasoft.statusnfe.domain.util.Utils;
 import com.selecaoviasoft.statusnfe.persistence.ServicoRepository;
+import com.sun.tools.javac.util.StringUtils;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,14 +56,14 @@ public class ServicoServiceImpl implements ServicoService {
     }
 
     @Override
-    public Servico encontrarPorEstadoAndData(String uf, Date data) {
-        Servico servico = findAndValidateByUfAndData(uf, data);
-        return servico;
+    public List<Servico> encontrarPorEstadoAndData(String uf, Date dataInicial, Date dataFinal) {
+        List<Servico> servicos = findAndValidateByUfAndData(uf, dataInicial, dataFinal);
+        return servicos;
     }
 
     @Override
     public String encontrarEstadoMaiorIndiponibilidade() {
-        List<Servico> servicos = servicoRepository.findAllIndisponiveis(EnumDisponibilidade.VERMELHO);
+        List<Servico> servicos = servicoRepository.findAllIndisponiveis(EnumDisponibilidade.INDISPONIVEL.getKey());
         return servicos.get(0).getAutorizador();
     }
 
@@ -91,18 +96,23 @@ public class ServicoServiceImpl implements ServicoService {
     }
 
     public Servico findAndValidateByUf(String uf) {
-        Servico servico = servicoRepository.findFirstByAutorizadorOrderByIdDesc(uf);
+        Servico servico = servicoRepository.findFirstByAutorizadorOrderByIdDesc(StringUtils.toUpperCase(uf));
         if (Utils.isEmpty(servico)) {
             throw new DomainException(EnumDomainException.UF_NAO_ENCONTRADA.getMessage(), uf);
         }
         return servico;
     }
 
-    public Servico findAndValidateByUfAndData(String uf, Date data) {
-        Date startDay = DateUtil.atStartOfDay(data);
-        Date endDay = DateUtil.atEndOfDay(data);
-        Servico servico = servicoRepository.findByAutorizadorAndDataInclusao(uf, startDay, endDay);
-        return servico;
+    public List<Servico> findAndValidateByUfAndData(String uf, Date dataInicial, Date dataFinal) {
+        if(dataFinal.before(dataInicial)){
+            throw new DomainException(EnumDomainException.DATA_INVALIDA.getMessage(), dataInicial, dataFinal);
+        }
+        
+        List<Servico> servicos = servicoRepository.findFirstByAutorizadorAndDataInclusaoOrderByDataInclusaoDesc(uf, dataInicial, dataFinal);
+        if (Utils.isEmpty(servicos)) {
+                throw new DomainException(EnumDomainException.DATA_E_UF_NAO_ENCONTRADOS.getMessage(), uf, dataInicial, dataFinal);
+        }
+        return servicos;
     }
 
 }

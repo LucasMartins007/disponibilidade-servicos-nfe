@@ -22,7 +22,7 @@ public interface ServicoService {
     
     String encontrarPorEstadoAndServico(String uf, String servico);
     
-    Servico encontrarPorEstadoAndData(String uf, Date data);
+    List<Servico> encontrarPorEstadoAndData(String uf, Date dataInicial, Date dataFinal);
     
     String encontrarEstadoMaiorIndiponibilidade();
     
