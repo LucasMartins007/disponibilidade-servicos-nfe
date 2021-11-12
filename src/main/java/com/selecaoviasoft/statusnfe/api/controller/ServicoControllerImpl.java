@@ -5,6 +5,7 @@
 package com.selecaoviasoft.statusnfe.api.controller;
 
 import com.selecaoviasoft.statusnfe.domain.model.Servico;
+import com.selecaoviasoft.statusnfe.domain.model.dto.ServicoIndisponivelDTO;
 import com.selecaoviasoft.statusnfe.domain.service.ServicoService;
 import java.util.Date;
 import java.util.List;
@@ -41,8 +42,8 @@ public class ServicoControllerImpl implements ServicoController {
     }
 
     @Override
-    public ResponseEntity<String> buscarEstadoMaiorIndisponibilidade() {
-        String estado = servicoService.encontrarEstadoMaiorIndiponibilidade();
-        return ResponseEntity.ok(estado);
+    public ResponseEntity<ServicoIndisponivelDTO> buscarEstadoMaiorIndisponibilidade() {
+        ServicoIndisponivelDTO servicoIndisponivelDTO = servicoService.encontrarEstadoMaiorIndisponibilidade();
+        return ResponseEntity.ok(servicoIndisponivelDTO);
     }
 }

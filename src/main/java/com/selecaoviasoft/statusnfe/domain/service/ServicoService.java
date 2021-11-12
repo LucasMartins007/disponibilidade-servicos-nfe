@@ -5,6 +5,7 @@
 package com.selecaoviasoft.statusnfe.domain.service;
 
 import com.selecaoviasoft.statusnfe.domain.model.Servico;
+import com.selecaoviasoft.statusnfe.domain.model.dto.ServicoIndisponivelDTO;
 import java.util.Date;
 import java.util.List;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,6 @@ public interface ServicoService {
     
     List<Servico> encontrarPorEstadoAndData(String uf, Date dataInicial, Date dataFinal);
     
-    String encontrarEstadoMaiorIndiponibilidade();
+    ServicoIndisponivelDTO encontrarEstadoMaiorIndisponibilidade();
     
 }

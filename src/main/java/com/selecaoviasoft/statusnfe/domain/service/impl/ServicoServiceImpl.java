@@ -7,23 +7,15 @@ package com.selecaoviasoft.statusnfe.domain.service.impl;
 import com.selecaoviasoft.statusnfe.domain.exception.DomainException;
 import com.selecaoviasoft.statusnfe.domain.exception.EnumDomainException;
 import com.selecaoviasoft.statusnfe.domain.model.Servico;
+import com.selecaoviasoft.statusnfe.domain.model.dto.ServicoIndisponivelDTO;
+import com.selecaoviasoft.statusnfe.domain.model.vo.ServicoIndisponivelVO;
 import com.selecaoviasoft.statusnfe.domain.model.enums.EnumDisponibilidade;
 import com.selecaoviasoft.statusnfe.domain.service.ServicoService;
-import com.selecaoviasoft.statusnfe.domain.util.DateUtil;
 import com.selecaoviasoft.statusnfe.domain.util.StringUtil;
 import com.selecaoviasoft.statusnfe.domain.util.Utils;
 import com.selecaoviasoft.statusnfe.persistence.ServicoRepository;
-import com.sun.tools.javac.util.StringUtils;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -62,9 +54,14 @@ public class ServicoServiceImpl implements ServicoService {
     }
 
     @Override
-    public String encontrarEstadoMaiorIndiponibilidade() {
-        List<Servico> servicos = servicoRepository.findAllIndisponiveis(EnumDisponibilidade.INDISPONIVEL.getKey());
-        return servicos.get(0).getAutorizador();
+    public ServicoIndisponivelDTO encontrarEstadoMaiorIndisponibilidade() {
+        List<ServicoIndisponivelVO> servisosIndisponiveisVO = servicoRepository.findAllIndisponiveis(EnumDisponibilidade.INDISPONIVEL.getKey());
+        
+        ServicoIndisponivelDTO servicoIndisponivelDTO = new ServicoIndisponivelDTO();
+        servicoIndisponivelDTO.setEstado(servisosIndisponiveisVO.get(0).getEstado());
+        servicoIndisponivelDTO.setQtdeIndisponiveis(servisosIndisponiveisVO.get(0).getQtdeIndisponiveis());
+        
+        return servicoIndisponivelDTO;
     }
 
     private String resolverServico(Servico servico, String nomeServico) {
@@ -96,7 +93,7 @@ public class ServicoServiceImpl implements ServicoService {
     }
 
     public Servico findAndValidateByUf(String uf) {
-        Servico servico = servicoRepository.findFirstByAutorizadorOrderByIdDesc(StringUtils.toUpperCase(uf));
+        Servico servico = servicoRepository.findFirstByAutorizadorOrderByIdDesc(StringUtil.toUpperCase(uf));
         if (Utils.isEmpty(servico)) {
             throw new DomainException(EnumDomainException.UF_NAO_ENCONTRADA.getMessage(), uf);
         }

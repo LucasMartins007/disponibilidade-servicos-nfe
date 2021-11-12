@@ -5,10 +5,10 @@
 package com.selecaoviasoft.statusnfe.persistence;
 
 import com.selecaoviasoft.statusnfe.domain.model.Servico;
-import com.selecaoviasoft.statusnfe.domain.model.enums.EnumDisponibilidade;
+import com.selecaoviasoft.statusnfe.domain.model.dto.ServicoIndisponivelDTO;
+import com.selecaoviasoft.statusnfe.domain.model.vo.ServicoIndisponivelVO;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -30,18 +30,18 @@ public interface ServicoRepository extends JpaRepository<Servico, Integer>{
             + " ORDER BY s.dataInclusao DESC ")
     List<Servico> findFirstByAutorizadorAndDataInclusaoOrderByDataInclusaoDesc(String uf, Date dataInicial, Date dataFinal);
     
-    @Query(value = " select s.autorizador from Servico s where s.autorizador in ( "
-            + "select s.autorizador, " +
-            " (  SUM(case when s.autorizacao = :disponibilidade THEN 1 ELSE 0 END) " +
-            "   SUM(case when s.retornoAtualizacao = :disponibilidade then 1 else 0 end) " +
-            "	SUM(case when s.inutilizacao = :disponibilidade then 1 else 0 end) " +
-            "	SUM(case when s.consultaProtocolo = :disponibilidade then 1 else 0 end) " +
-            "	SUM(case when s.statusServico = :disponibilidade then 1 else 0 end) " +
-            "	SUM(case when s.consultaCadastro = :disponibilidade then 1 else 0 end) " +
-            "	SUM(case when s.recepcaoEvento = :disponibilidade then 1 else 0 end)     ) as soma " +
-            " from Servico s " +
-            " group by s.autorizador " + 
-            " order by soma DESC ) as soma_indisponiveis  ")
-    List<Servico> findAllIndisponiveis(@Param("disponibilidade") String disponibilidade);
+    @Query(value = " select autorizador as estado, soma as qtdeIndisponiveis from ( "
+            + "select autorizador, " +
+            "  ( (case when autorizacao = :disponibilidade THEN 1 ELSE 0 END) " +
+            "   + SUM(case when retorno_atualizacao = :disponibilidade then 1 else 0 end) " +
+            "	+ SUM(case when inutilizacao = :disponibilidade then 1 else 0 end) " +
+            "	+ SUM(case when consulta_protocolo = :disponibilidade then 1 else 0 end) " +
+            "	+ SUM(case when status_servico = :disponibilidade then 1 else 0 end) " +
+            "	+ SUM(case when consulta_cadastro = :disponibilidade then 1 else 0 end) " +
+            "	+ SUM(case when recepcao_evento = :disponibilidade then 1 else 0 end)) as soma " +
+            " from servico " +
+            " group by autorizador, autorizacao " + 
+            " order by soma DESC ) as soma_indisponiveis  ", nativeQuery = true)
+    List<ServicoIndisponivelVO> findAllIndisponiveis(@Param("disponibilidade") String disponibilidade);
     
 }

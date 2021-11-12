@@ -5,6 +5,7 @@
 package com.selecaoviasoft.statusnfe.api.controller;
 
 import com.selecaoviasoft.statusnfe.domain.model.Servico;
+import com.selecaoviasoft.statusnfe.domain.model.dto.ServicoIndisponivelDTO;
 import com.selecaoviasoft.statusnfe.domain.util.DateUtil;
 import java.util.Date;
 import java.util.List;
@@ -41,7 +42,7 @@ public interface ServicoController {
     
     @GetMapping("indisponiveis")
     @ResponseStatus(HttpStatus.OK)
-    ResponseEntity<String> buscarEstadoMaiorIndisponibilidade();
+    ResponseEntity<ServicoIndisponivelDTO> buscarEstadoMaiorIndisponibilidade();
     
     
 }
